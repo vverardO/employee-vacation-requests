@@ -30,7 +30,6 @@ class EmployeeFactory extends Factory
 
         return [
             'name' => fake()->unique()->name(),
-            'birth_date' => fake()->date(),
             'gender' => $gender,
             'general_record' => $document,
             'registration_physical_person' => "$one.$two.$three-$four",

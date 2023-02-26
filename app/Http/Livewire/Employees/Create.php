@@ -47,7 +47,7 @@ class Create extends Component
     {
         $this->employee = new Employee();
 
-        collect(GendersEnum::cases())->each(function ($gender) {
+        collect(GendersEnum::cases())->each(function (GendersEnum $gender) {
             $this->genders[$gender->value] = $gender->getName($gender->value);
         });
     }

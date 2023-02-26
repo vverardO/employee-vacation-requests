@@ -18,7 +18,7 @@
                 <div class="col-md-6">
                     <div class="form-inline float-md-end mb-3">
                         <a href="{{route('employees.create')}}" class="btn btn-success waves-effect waves-light">
-                            <i class="mdi mdi-plus me-2"></i> Novo Cliente
+                            <i class="mdi mdi-plus me-2"></i> Novo Funcionário
                         </a>
                     </div>
                 </div>
@@ -31,7 +31,6 @@
                             <th>Registro Geral</th>
                             <th>CPF</th>
                             <th>Data Criação</th>
-                            <th>Data Nascimento</th>
                             <th style="width: 100px;">Ações</th>
                         </tr>
                     </thead>
@@ -42,7 +41,6 @@
                             <td>{{$employee->general_record}}</td>
                             <td>{{$employee->registration_physical_person}}</td>
                             <td>{{$employee->created_at_formatted}}</td>
-                            <td>{{$employee->birth_date_formatted}}</td>
                             <td>
                                 <ul class="list-inline mb-0">
                                     <li class="list-inline-item">

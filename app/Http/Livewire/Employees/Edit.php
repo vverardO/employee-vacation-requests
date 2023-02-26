@@ -49,13 +49,13 @@ class Edit extends Component
         try {
             $this->employee = Employee::relatedToUserCompany()->findOrFail($id);
         } catch (ModelNotFoundException $exception) {
-            session()->flash('message', 'Cliente inválido!');
+            session()->flash('message', 'Funcionário inválido!');
             session()->flash('type', 'warning');
 
             return redirect()->route('employees.index');
         }
 
-        collect(GendersEnum::cases())->each(function ($gender) {
+        collect(GendersEnum::cases())->each(function (GendersEnum $gender) {
             $this->genders[$gender->value] = $gender->getName($gender->value);
         });
     }

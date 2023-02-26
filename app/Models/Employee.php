@@ -15,7 +15,6 @@ class Employee extends Model
 
     protected $fillable = [
         'name',
-        'birth_date',
         'gender',
         'general_record',
         'registration_physical_person',
@@ -26,20 +25,12 @@ class Employee extends Model
     ];
 
     protected $casts = [
-        'birth_date' => 'date',
         'gender' => GendersEnum::class,
     ];
 
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
-    }
-
-    protected function birthDateFormatted(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => (! $this->birth_date) ? 'Não informada' : $this->birth_date->format('d/m/Y'),
-        );
     }
 
     public function createdAtFormatted(): Attribute
