@@ -17,6 +17,12 @@ class Navbar extends Component
                 'route' => route('users.index'),
                 'active' => request()->routeIs('users.*') ? 'active' : '',
             ],
+            'employees' => [
+                'title' => 'Funcionários',
+                'icon' => 'fas fa-users',
+                'route' => route('employees.index'),
+                'active' => request()->routeIs('employees.*') ? 'active' : '',
+            ],
         ];
     }
 

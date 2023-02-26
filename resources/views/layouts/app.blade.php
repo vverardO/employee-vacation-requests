@@ -44,7 +44,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-sm-6">
-                                <script>document.write(new Date().getFullYear())</script> &copy; {{Config::get('app.name')}} - Desenvolvido por Valentim Verardo
+                                <script>document.write(new Date().getFullYear())</script> &copy; Customer Management System - Desenvolvido por Valentim Verardo
                             </div>
                         </div>
                     </div>

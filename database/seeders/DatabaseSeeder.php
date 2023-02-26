@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
     {
         Company::factory(5)
             ->hasUsers(3)
+            ->hasEmployees(5)
             ->create();
     }
 }
