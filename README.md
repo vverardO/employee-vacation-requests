@@ -35,8 +35,9 @@ Quero deixar a aplicação aberta para que possa atender tanto empresas como pre
 
 O que teríamos na a aplicação:
 
-- [X] Cadastro de usuários
-- [X] Cadastro de empresa
+- [X] Gerenciamento de usuários
+- [X] Gerenciamento de empresa
+- [X] Gerenciamento de funcionários
 - [ ] Níveis/tipos de usuários
 - [ ] Gerenciamento de perfis
 - [ ] Solicitação de férias
