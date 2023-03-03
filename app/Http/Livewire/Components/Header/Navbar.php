@@ -23,6 +23,12 @@ class Navbar extends Component
                 'route' => route('employees.index'),
                 'active' => request()->routeIs('employees.*') ? 'active' : '',
             ],
+            'requests' => [
+                'title' => 'Solicitações',
+                'icon' => 'fas fa-calendar-alt',
+                'route' => route('requests.index'),
+                'active' => request()->routeIs('requests.*') ? 'active' : '',
+            ],
         ];
     }
 

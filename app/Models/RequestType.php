@@ -6,17 +6,16 @@ use Carbon\Traits\Timestamp;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Company extends Model
+class RequestType extends Model
 {
-    use SoftDeletes;
     use HasFactory;
     use Timestamp;
 
+    const IS_VACATION = 'Férias';
+
     protected $fillable = [
-        'name',
-        'identificator',
+        'title',
     ];
 
     protected $dates = [
@@ -24,16 +23,6 @@ class Company extends Model
         'updated_at',
         'deleted_at',
     ];
-
-    public function users(): HasMany
-    {
-        return $this->hasMany(User::class);
-    }
-
-    public function employees(): HasMany
-    {
-        return $this->hasMany(Employee::class);
-    }
 
     public function requests(): HasMany
     {

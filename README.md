@@ -33,13 +33,13 @@ Contemplar a seguinte solicitação:
 Por que empresa município?
 Quero deixar a aplicação aberta para que possa atender tanto empresas como prefeituras, o que mudaria seriam as nomenclaturas, exemplo: em vez de unidade, seria secretaria e assim por diante.
 
-O que teríamos na a aplicação:
+O que teríamos na aplicação:
 
 - [X] Gerenciamento de usuários
 - [X] Gerenciamento de empresa
 - [X] Gerenciamento de funcionários
 - [ ] Níveis/tipos de usuários
 - [ ] Gerenciamento de perfis
-- [ ] Solicitação de férias
+- [X] Solicitação de férias
 - [ ] Gerenciar solicitação
 - [ ] Aprovações/desaprovações de férias
