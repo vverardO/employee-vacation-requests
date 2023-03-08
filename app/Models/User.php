@@ -19,6 +19,7 @@ class User extends Authenticatable
         'password',
         'status',
         'company_id',
+        'access_role_id',
     ];
 
     protected $dates = [
@@ -30,6 +31,11 @@ class User extends Authenticatable
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function accessRole(): BelongsTo
+    {
+        return $this->belongsTo(AccessRole::class);
     }
 
     public function scopeRelatedToUserCompany(Builder $query): void
