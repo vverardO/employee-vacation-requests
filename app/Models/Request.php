@@ -96,6 +96,6 @@ class Request extends Model
 
     public function scopeRelatedToUser(Builder $query): void
     {
-        //@todo adicionar where por created_by quando existir distinção de users
+        $query->where('created_by', auth()->user()->id);
     }
 }

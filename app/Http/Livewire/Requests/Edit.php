@@ -57,7 +57,9 @@ class Edit extends Component
     public function mount($id)
     {
         try {
-            $this->request = Request::relatedToUserCompany()->findOrFail($id);
+            $this->request = Request::relatedToUserCompany()
+                ->relatedToUser()
+                ->findOrFail($id);
         } catch (ModelNotFoundException $exception) {
             session()->flash('message', 'Solicitação inválida!');
             session()->flash('type', 'warning');

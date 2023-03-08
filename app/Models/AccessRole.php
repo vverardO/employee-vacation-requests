@@ -25,6 +25,7 @@ class AccessRole extends Model
     ];
 
     const ADMIN = 'Administrador';
+
     const USER = 'Usuário';
 
     public function users(): HasMany
