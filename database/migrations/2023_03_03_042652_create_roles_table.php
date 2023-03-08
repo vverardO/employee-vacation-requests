@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\AccessRole;
+use App\Models\Role;
 use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -11,21 +11,21 @@ return new class() extends Migration
 {
     public function up(): void
     {
-        Schema::create('access_roles', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->timestamps();
             $table->softDeletes();
         });
 
-        DB::table('access_roles')->insert([
+        DB::table('roles')->insert([
             [
-                'title' => AccessRole::ADMIN,
+                'title' => Role::ADMIN,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
-                'title' => AccessRole::USER,
+                'title' => Role::USER,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -34,6 +34,6 @@ return new class() extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('access_roles');
+        Schema::dropIfExists('roles');
     }
 };

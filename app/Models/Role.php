@@ -5,15 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class AccessRole extends Model
+class Role extends Model
 {
-    use SoftDeletes;
     use HasFactory;
-
-    public $timestamps = false;
 
     protected $fillable = [
         'title',
@@ -31,6 +28,12 @@ class AccessRole extends Model
     public function users(): HasMany
     {
         return $this->hasMany(User::class);
+    }
+
+    public function permissions(): BelongsToMany
+    {
+        return $this->belongsToMany(Permission::class)
+            ->using(PermissionRole::class);
     }
 
     public function scopeIsAdmin($query): Builder

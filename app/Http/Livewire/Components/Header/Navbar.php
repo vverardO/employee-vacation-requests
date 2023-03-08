@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Components\Header;
 
+use App\Models\Role;
 use Livewire\Component;
 
 class Navbar extends Component
@@ -30,6 +31,10 @@ class Navbar extends Component
                 'active' => request()->routeIs('requests.*') ? 'active' : '',
             ],
         ];
+
+        if (Role::USER == auth()->user()->role->title) {
+            unset($this->menus['users']);
+        }
     }
 
     public function render()

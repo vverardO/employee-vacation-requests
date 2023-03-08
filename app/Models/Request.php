@@ -96,6 +96,8 @@ class Request extends Model
 
     public function scopeRelatedToUser(Builder $query): void
     {
-        $query->where('created_by', auth()->user()->id);
+        if (Role::USER == auth()->user()->role->title) {
+            $query->where('created_by', auth()->user()->id);
+        }
     }
 }

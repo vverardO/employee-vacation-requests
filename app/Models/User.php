@@ -33,9 +33,14 @@ class User extends Authenticatable
         return $this->belongsTo(Company::class);
     }
 
-    public function accessRole(): BelongsTo
+    public function role(): BelongsTo
     {
-        return $this->belongsTo(AccessRole::class);
+        return $this->belongsTo(Role::class);
+    }
+
+    public function isUser(): bool
+    {
+        return Role::USER == $this->role->title;
     }
 
     public function scopeRelatedToUserCompany(Builder $query): void

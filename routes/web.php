@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login', Login::class)->name('login');
 Route::get('/register', Register::class)->name('register');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'ensure.user.can.access'])->group(function () {
     Route::get('/', Dashboard::class)->name('dashboard');
 
     Route::get('/profile', UsersProfile::class)->name('profile');
