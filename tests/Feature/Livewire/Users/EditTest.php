@@ -3,6 +3,7 @@
 namespace Tests\Feature\Livewire\Users;
 
 use App\Http\Livewire\Users\Edit;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -85,5 +86,33 @@ class EditTest extends TestCase
             ->assertSessionHas('message', 'Atualizado com sucesso!')
             ->assertSessionHas('type', 'success')
             ->assertRedirect(route('users.index'));
+    }
+
+    /** @test */
+    public function admin_can_not_edit_his_role()
+    {
+        $admin = User::factory()->create([
+            'role_id' => Role::isAdmin()->first()->id,
+        ]);
+
+        $this->actingAs($admin);
+
+        Livewire::test(Edit::class, [$admin->id])->assertSee("disabled");
+    }
+
+    /** @test */
+    public function admin_can_edit_other_user_role()
+    {
+        $admin = User::factory()->create([
+            'role_id' => Role::isAdmin()->first()->id,
+        ]);
+
+        $this->actingAs($admin);
+
+        $user = User::factory()->create([
+            'role_id' => Role::isUser()->first()->id,
+        ]);
+
+        Livewire::test(Edit::class, [$user->id])->assertDontSee("disabled");
     }
 }
