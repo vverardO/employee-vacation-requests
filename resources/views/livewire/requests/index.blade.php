@@ -34,7 +34,8 @@
                             <th>Fim</th>
                             <th>Tipo</th>
                             <th>Status</th>
-                            <th style="width: 100px;">Ações</th>
+                            <th style="width: 100px">Aprovar ou Rejeitar</th>
+                            <th style="width: 100px">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,6 +48,20 @@
                             <td>{{$request->end_formatted}}</td>
                             <td>{{$request->requestType->title}}</td>
                             <td><span class="badge badge-pill badge-soft-{{$request->status->getColor($request->status->value)}} font-size-12">{{$request->status->getName($request->status->value)}}</span></td>
+                            <td>
+                            @if($request->is_opened)
+                                <li class="list-inline-item">
+                                    <a type="button" rel="tooltip" wire:click="approve({{$request->id}})" class="text-success" title="Aprovar"><i class="bx bx-check-circle font-size-18"></i></a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a type="button" rel="tooltip" wire:click="reject({{$request->id}})" class="text-danger" title="Rejeitar"><i class="bx bx-x-circle font-size-18"></i></a>
+                                </li>
+                            @else
+                                <li class="list-inline-item">
+                                    -
+                                </li>
+                            @endif
+                            </td>
                             <td>
                                 <ul class="list-inline mb-0">
                                     <li class="list-inline-item">

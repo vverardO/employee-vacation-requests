@@ -38,8 +38,8 @@ O que teríamos na aplicação:
 - [X] Gerenciamento de usuários
 - [X] Gerenciamento de empresa
 - [X] Gerenciamento de funcionários
-- [ ] Níveis/tipos de usuários
+- [X] Níveis/tipos de usuários
 - [ ] Gerenciamento de perfis
 - [X] Solicitação de férias
-- [ ] Gerenciar solicitação
-- [ ] Aprovações/desaprovações de férias
+- [X] Gerenciar solicitação
+- [X] Aprovações/desaprovações de férias

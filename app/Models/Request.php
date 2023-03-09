@@ -22,8 +22,14 @@ class Request extends Model
         'start',
         'end',
         'company_id',
+        'status',
         'employee_id',
         'request_type_id',
+        'created_by',
+        'approved_by',
+        'approved_at',
+        'rejected_by',
+        'rejected_at',
     ];
 
     protected $dates = [
@@ -86,6 +92,13 @@ class Request extends Model
     {
         return Attribute::make(
             get: fn () => Carbon::createFromFormat('Y-m-d', $this->end)->format('d/m/Y'),
+        );
+    }
+
+    public function isOpened(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->status === RequestStatus::Opened,
         );
     }
 

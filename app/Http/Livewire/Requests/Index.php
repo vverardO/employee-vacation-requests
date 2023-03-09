@@ -2,9 +2,11 @@
 
 namespace App\Http\Livewire\Requests;
 
+use App\Enums\RequestStatus;
 use App\Models\Request;
 use App\Traits\Destroyable;
 use App\Traits\Showable;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
@@ -18,6 +20,42 @@ class Index extends Component
     protected $updatesQueryString = [
         'search' => ['except' => ''],
     ];
+
+    public function approve($id)
+    {
+        $request = Request::find($id);
+
+        $request->update([
+            'approved_by' => auth()->user()->id,
+            'approved_at' => Carbon::now(),
+            'status' => RequestStatus::Approved,
+        ]);
+
+        $request->save();
+
+        $this->emit('alert', [
+            'type' => 'success',
+            'message' => 'Solicitação aprovada com sucesso!',
+        ]);
+    }
+
+    public function reject($id)
+    {
+        $request = Request::find($id);
+
+        $request->update([
+            'rejected_by' => auth()->user()->id,
+            'rejected_at' => Carbon::now(),
+            'status' => RequestStatus::Rejected,
+        ]);
+
+        $request->save();
+
+        $this->emit('alert', [
+            'type' => 'success',
+            'message' => 'Solicitação rejeitada com sucesso!',
+        ]);
+    }
 
     public function mount()
     {
