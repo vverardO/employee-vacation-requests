@@ -97,7 +97,7 @@ class EditTest extends TestCase
 
         $this->actingAs($admin);
 
-        Livewire::test(Edit::class, [$admin->id])->assertSee("disabled");
+        Livewire::test(Edit::class, [$admin->id])->assertSee('disabled');
     }
 
     /** @test */
@@ -113,6 +113,6 @@ class EditTest extends TestCase
             'role_id' => Role::isUser()->first()->id,
         ]);
 
-        Livewire::test(Edit::class, [$user->id])->assertDontSee("disabled");
+        Livewire::test(Edit::class, [$user->id])->assertDontSee('disabled');
     }
 }
