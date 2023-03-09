@@ -3,15 +3,12 @@
 namespace Tests\Feature\Livewire\Permissions;
 
 use App\Http\Livewire\Employees\Create;
-use App\Http\Livewire\Employees\Index;
 use App\Http\Livewire\Employees\Edit;
+use App\Http\Livewire\Employees\Index;
 use App\Models\Company;
 use App\Models\Employee;
-use App\Models\Request;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Str;
 use Livewire\Livewire;
 use Tests\TestCase;
 

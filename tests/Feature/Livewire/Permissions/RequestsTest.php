@@ -9,7 +9,6 @@ use App\Models\Request;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Str;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -127,12 +126,12 @@ class RequestsTest extends TestCase
                 ->exists()
         );
     }
-    
+
     /** @test */
     public function user_can_see_only_request_created_by_him()
     {
         $company = Company::factory()->create();
-        
+
         $user = User::factory()->for($company)->create([
             'role_id' => Role::isUser()->first()->id,
         ]);
@@ -168,7 +167,7 @@ class RequestsTest extends TestCase
     public function admin_can_see_all_requests()
     {
         $company = Company::factory()->create();
-        
+
         $admin = User::factory()->for($company)->create([
             'role_id' => Role::isAdmin()->first()->id,
         ]);

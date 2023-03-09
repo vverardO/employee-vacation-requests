@@ -2,17 +2,10 @@
 
 namespace Tests\Feature\Livewire\Permissions;
 
-use App\Http\Livewire\Users\Create;
-use App\Http\Livewire\Users\Index;
-use App\Http\Livewire\Users\Edit;
 use App\Models\Company;
-use App\Models\Employee;
-use App\Models\Request;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Str;
-use Livewire\Livewire;
 use Tests\TestCase;
 
 class UsersTest extends TestCase
@@ -42,7 +35,7 @@ class UsersTest extends TestCase
     public function admin_can_access_users_index()
     {
         $company = Company::factory()->create();
-        
+
         $admin = User::factory()->for($company)->create([
             'role_id' => Role::isAdmin()->first()->id,
         ]);
