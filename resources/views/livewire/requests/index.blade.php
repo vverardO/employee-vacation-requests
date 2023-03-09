@@ -34,7 +34,9 @@
                             <th>Fim</th>
                             <th>Tipo</th>
                             <th>Status</th>
+                            @unless(Auth::user()->isUser())
                             <th style="width: 100px">Aprovar ou Rejeitar</th>
+                            @endunless
                             <th style="width: 100px">Ações</th>
                         </tr>
                     </thead>
@@ -48,6 +50,7 @@
                             <td>{{$request->end_formatted}}</td>
                             <td>{{$request->requestType->title}}</td>
                             <td><span class="badge badge-pill badge-soft-{{$request->status->getColor($request->status->value)}} font-size-12">{{$request->status->getName($request->status->value)}}</span></td>
+                            @unless(Auth::user()->isUser())
                             <td>
                             @if($request->is_opened)
                                 <li class="list-inline-item">
@@ -62,6 +65,7 @@
                                 </li>
                             @endif
                             </td>
+                            @endunless
                             <td>
                                 <ul class="list-inline mb-0">
                                     <li class="list-inline-item">
