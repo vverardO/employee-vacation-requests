@@ -106,12 +106,12 @@ class IndexTest extends TestCase
         $this->actingAs($admin);
 
         Request::factory()->create([
-            'company_id' => auth()->user()->company_id
+            'company_id' => auth()->user()->company_id,
         ]);
 
         Livewire::test(Index::class)
             ->call('render')
-            ->assertSee("Aprovar ou Rejeitar");
+            ->assertSee('Aprovar ou Rejeitar');
     }
 
     /** @test */
@@ -130,7 +130,7 @@ class IndexTest extends TestCase
 
         Livewire::test(Index::class)
             ->call('render')
-            ->assertDontSee("Aprovar ou Rejeitar");
+            ->assertDontSee('Aprovar ou Rejeitar');
     }
 
     /** @test */
