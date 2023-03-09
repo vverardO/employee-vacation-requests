@@ -3,6 +3,7 @@
 namespace Tests\Feature\Livewire\Users;
 
 use App\Http\Livewire\Users\Create;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
@@ -32,6 +33,7 @@ class CreateTest extends TestCase
             ->set('user.name', 'user name')
             ->set('user.email', 'user@email.com')
             ->set('user.password', 'password')
+            ->set('user.role_id', Role::isAdmin()->first()->id)
             ->call('store')
             ->assertSessionHas('message', 'Cadastrado com sucesso!')
             ->assertSessionHas('type', 'success')
@@ -53,11 +55,13 @@ class CreateTest extends TestCase
             ->set('user.name', '')
             ->set('user.email', '')
             ->set('user.password', '')
+            ->set('user.role_id', null)
             ->call('store')
             ->assertHasErrors([
                 'user.name' => 'required',
                 'user.email' => 'required',
                 'user.password' => 'required',
+                'user.role_id' => 'required',
             ]);
     }
 

@@ -30,6 +30,7 @@ class IndexTest extends TestCase
 
         Request::factory()->create([
             'company_id' => auth()->user()->company_id,
+            'created_by' => auth()->user()->id,
         ]);
 
         $request = Request::all()->first();
@@ -47,6 +48,7 @@ class IndexTest extends TestCase
 
         Request::factory()->create([
             'company_id' => auth()->user()->company_id,
+            'created_by' => auth()->user()->id,
         ]);
 
         $request = Request::all()->first();
@@ -64,6 +66,7 @@ class IndexTest extends TestCase
 
         Request::factory()->create([
             'company_id' => auth()->user()->company_id,
+            'created_by' => auth()->user()->id,
         ]);
 
         $request = Request::all()->first();
@@ -81,6 +84,7 @@ class IndexTest extends TestCase
 
         Request::factory()->create([
             'company_id' => auth()->user()->company_id,
+            'created_by' => auth()->user()->id,
         ]);
 
         $request = Request::all()->first();
@@ -96,7 +100,10 @@ class IndexTest extends TestCase
     {
         $this->actingAs(User::factory()->create());
 
-        $request = Request::factory()->create();
+        $request = Request::factory()->create([
+            'company_id' => auth()->user()->company_id,
+            'created_by' => auth()->user()->id,
+        ]);
 
         Livewire::test(Index::class)
             ->call(

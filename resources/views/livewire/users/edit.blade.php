@@ -39,9 +39,19 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label class="col-md-2 col-form-label">Nome da Empresa</label>
+                    <label class="col-md-2 col-form-label">Perfil</label>
                     <div class="col-md-10">
-                        <input class="form-control" placeholder="Empresa" readonly wire:model="user.company.name">
+                        <select class="form-select @error('user.role_id') is-invalid @enderror" @if($user->id == auth()->user()->id) disabled @endif wire:model="user.role_id">
+                            <option>Selecione</option>
+                            @foreach($roles as $role)
+                            <option value="{{$role->id}}">{{$role->title}}</option>
+                            @endforeach
+                        </select>
+                        @error('user.role_id')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row text-center mt-4">

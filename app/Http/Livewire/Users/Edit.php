@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire\Users;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
@@ -11,11 +13,14 @@ class Edit extends Component
 {
     public User $user;
 
+    public Collection $roles;
+
     protected $rules = [
         'user.name' => ['required', 'max:128'],
         'user.email' => ['required', 'email'],
         'user.password' => ['sometimes'],
         'user.company.name' => ['sometimes'],
+        'user.role_id' => ['required'],
     ];
 
     protected $messages = [
@@ -24,6 +29,7 @@ class Edit extends Component
         'user.email.required' => 'Necessário informar o email',
         'user.email.email' => 'Formato inválido',
         'user.password.sometimes' => 'Necessário informar a senha',
+        'user.role_id' => 'Selecione o perfil',
     ];
 
     public function store()
@@ -56,6 +62,8 @@ class Edit extends Component
 
             return redirect()->route('users.index');
         }
+
+        $this->roles = Role::select(['title', 'id'])->get();
     }
 
     public function render()

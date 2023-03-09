@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire\Users;
 
+use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
@@ -10,10 +12,13 @@ class Create extends Component
 {
     public User $user;
 
+    public Collection $roles;
+
     protected $rules = [
         'user.name' => ['required', 'max:128'],
         'user.email' => ['required', 'email'],
         'user.password' => ['required'],
+        'user.role_id' => ['required'],
     ];
 
     protected $messages = [
@@ -22,6 +27,7 @@ class Create extends Component
         'user.email.required' => 'Necessário informar o email',
         'user.email.email' => 'Formato inválido',
         'user.password.required' => 'Necessário informar a senha',
+        'user.role_id' => 'Selecione o perfil',
     ];
 
     public function store()
@@ -43,6 +49,7 @@ class Create extends Component
     public function mount()
     {
         $this->user = new User();
+        $this->roles = Role::select(['title', 'id'])->get();
     }
 
     public function render()

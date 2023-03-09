@@ -38,10 +38,26 @@
                         @enderror
                     </div>
                 </div>
+                <div class="mb-3 row">
+                    <label class="col-md-2 col-form-label">Perfil</label>
+                    <div class="col-md-10">
+                        <select class="form-select @error('user.role_id') is-invalid @enderror" wire:model="user.role_id">
+                            <option>Selecione</option>
+                            @foreach($roles as $role)
+                            <option value="{{$role->id}}">{{$role->title}}</option>
+                            @endforeach
+                        </select>
+                        @error('user.role_id')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
                 <div class="row text-center mt-4">
                     <div class="col-sm-12">
                         <button type="submit" class="btn btn-primary w-md">Atualizar</button>
-                        <a href="{{redirect()->back()->getTargetUrl()}}" class="btn btn-danger w-md">Cancelar</a>
+                        <a href="{{route('users.index')}}" class="btn btn-danger w-md">Cancelar</a>
                     </div>
                 </div>
             </form>

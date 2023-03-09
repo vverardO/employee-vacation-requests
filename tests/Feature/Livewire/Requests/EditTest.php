@@ -36,7 +36,10 @@ class EditTest extends TestCase
 
         $this->actingAs($user);
 
-        $request = Request::factory()->for($user->company)->create();
+        $request = Request::factory()->create([
+            'company_id' => auth()->user()->company_id,
+            'created_by' => auth()->user()->id,
+        ]);
 
         $stubRequest = Request::factory()->make();
 
@@ -70,7 +73,10 @@ class EditTest extends TestCase
 
         $this->actingAs($user);
 
-        $request = Request::factory()->for($user->company)->create();
+        $request = Request::factory()->create([
+            'company_id' => auth()->user()->company_id,
+            'created_by' => auth()->user()->id,
+        ]);
 
         Livewire::test(Edit::class, [$request->id])
             ->set('request.title', '')
@@ -97,7 +103,10 @@ class EditTest extends TestCase
 
         $title = Str::random(self::INVALID_TITLE_SIZE);
 
-        $request = Request::factory()->for($user->company)->create();
+        $request = Request::factory()->create([
+            'company_id' => auth()->user()->company_id,
+            'created_by' => auth()->user()->id,
+        ]);
 
         Livewire::test(Edit::class, [$request->id])
             ->set('request.title', $title)

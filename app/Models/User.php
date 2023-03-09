@@ -19,7 +19,7 @@ class User extends Authenticatable
         'password',
         'status',
         'company_id',
-        'access_role_id',
+        'role_id',
     ];
 
     protected $dates = [

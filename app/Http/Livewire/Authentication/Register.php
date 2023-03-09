@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Authentication;
 
 use App\Models\Company;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -29,7 +30,7 @@ class Register extends Component
         'user_email' => ['required', 'email', 'max:128', 'unique:users,email'],
         'user_password' => ['required', 'min:6'],
         'company_name' => ['required', 'max:128'],
-        'company_identificator' => ['required', 'max:128'],
+        'company_identificator' => ['required', 'max:128', 'unique:companies,name'],
     ];
 
     protected $messages = [
@@ -61,6 +62,8 @@ class Register extends Component
         $this->user->email = $this->user_email;
         $this->user->password = Hash::make($this->user_password);
         $this->user->company_id = $this->company->id;
+        $this->user->role_id = Role::isAdmin()->first()->id;
+        $this->user->status = true;
         $this->user->save();
 
         session()->flash('message', 'Conta registrada com sucesso!');
