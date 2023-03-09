@@ -4,6 +4,7 @@ namespace Tests\Feature\Livewire\Requests;
 
 use App\Http\Livewire\Requests\Index;
 use App\Models\Request;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -93,6 +94,43 @@ class IndexTest extends TestCase
             ->set('search', $request->employee->name)
             ->call('render')
             ->assertSee($request->employee->name);
+    }
+
+    /** @test */
+    public function admin_can_approve_a_request()
+    {
+        $admin = User::factory()->create([
+            'role_id' => Role::isAdmin()->first()->id,
+        ]);
+
+        $this->actingAs($admin);
+
+        Request::factory()->create([
+            'company_id' => auth()->user()->company_id
+        ]);
+
+        Livewire::test(Index::class)
+            ->call('render')
+            ->assertSee("Aprovar ou Rejeitar");
+    }
+
+    /** @test */
+    public function user_can_not_approve_or_reject_a_request()
+    {
+        $user = User::factory()->create([
+            'role_id' => Role::isUser()->first()->id,
+        ]);
+
+        $this->actingAs($user);
+
+        Request::factory()->create([
+            'company_id' => auth()->user()->company_id,
+            'created_by' => auth()->user()->id,
+        ]);
+
+        Livewire::test(Index::class)
+            ->call('render')
+            ->assertDontSee("Aprovar ou Rejeitar");
     }
 
     /** @test */
