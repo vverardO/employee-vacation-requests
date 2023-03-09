@@ -57,7 +57,7 @@
                 <div class="row text-center mt-4">
                     <div class="col-sm-12">
                         <button type="submit" class="btn btn-primary w-md">Atualizar</button>
-                        <a href="{{redirect()->back()->getTargetUrl()}}" class="btn btn-danger w-md">Cancelar</a>
+                        <a href="{{route('users.index')}}" class="btn btn-danger w-md">Cancelar</a>
                     </div>
                 </div>
             </form>
