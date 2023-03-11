@@ -68,15 +68,46 @@
                             @endunless
                             <td>
                                 <ul class="list-inline mb-0">
-                                    <li class="list-inline-item">
-                                        <a href="{{route('requests.edit', ['id' => $request->id])}}" class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
+                                    <li class="list-inline-item" title="Informações">
+                                        <a href="#" class="px-2 text-success" data-bs-toggle="modal" data-bs-target=".hidden-information-{{$request->id}}"><i class="bx bx-list-ol font-size-18"></i></a>
                                     </li>
-                                    <li class="list-inline-item">
+                                    <li class="list-inline-item" title="Alterar">
+                                        @if($request->is_opened)
+                                        <a href="{{route('requests.edit', ['id' => $request->id])}}" class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
+                                        @else
+                                        <a href="#" wire:click="notify()" class="px-2 text-secondary"><i class="bx bx-pencil font-size-18"></i></a>
+                                        @endif
+                                    </li>
+                                    <li class="list-inline-item" title="Excluir">
                                         <a href="#" wire:click="destroy('Request', {{$request->id}})" class="px-2 text-danger"><i class="bx bx-trash-alt font-size-18"></i></a>
                                     </li>
                                 </ul>
                             </td>
                         </tr>
+                        <div class="modal fade hidden-information-{{$request->id}}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="mySmallModalLabel">{{$request->title}}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        @if($request->isApproved)
+                                        <p>Data aprovação: <strong>{{$request->approved_at_formatted}}</strong></p>
+                                        <p>Quem aprovou: <strong>{{$request->approver->name}}</strong></p>
+                                        <p>Quem abriu: <strong>{{$request->creator->name}}</strong></p>
+                                        @elseif($request->isRejected)
+                                        <p>Data rejeição: <strong>{{$request->rejected_at_formatted}}</strong></p>
+                                        <p>Quem rejeitou: <strong>{{$request->rejector->name}}</strong></p>
+                                        <p>Quem abriu: <strong>{{$request->creator->name}}</strong></p>
+                                        @else
+                                        <p>Data Abertura: <strong>{{$request->created_at_formatted}}</strong></p>
+                                        <p>Quem abriu: <strong>{{$request->creator->name}}</strong></p>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         @empty
                         <tr>
                             <td colspan="8" align="center">Nenhuma informação a ser apresentada</td>

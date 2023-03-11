@@ -67,6 +67,13 @@ class Edit extends Component
             return redirect()->route('requests.index');
         }
 
+        if (! $this->request->canBeUpdated) {
+            session()->flash('message', 'Apenas solicitações em aberto podem ser editadas!');
+            session()->flash('type', 'warning');
+
+            return redirect()->route('requests.index');
+        }
+
         $this->employees = Employee::select(['name', 'id'])->get();
         $this->requestTypes = RequestType::select(['title', 'id'])->get();
     }

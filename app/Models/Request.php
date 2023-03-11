@@ -38,6 +38,8 @@ class Request extends Model
         'created_at',
         'updated_at',
         'deleted_at',
+        'approved_at',
+        'rejected_at',
     ];
 
     protected $casts = [
@@ -74,13 +76,6 @@ class Request extends Model
         return $this->belongsTo(User::class, 'rejected_by');
     }
 
-    public function statusTranslated(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->created_at->format('d/m/Y H:i:s'),
-        );
-    }
-
     public function startFormatted(): Attribute
     {
         return Attribute::make(
@@ -95,10 +90,45 @@ class Request extends Model
         );
     }
 
+    public function approvedAtFormatted(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->approved_at ?? Carbon::createFromFormat('Y-m-d', $this->approved_at)->format('d/m/Y'),
+        );
+    }
+
+    public function rejectedAtFormatted(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->rejected_at ?? Carbon::createFromFormat('Y-m-d', $this->rejected_at)->format('d/m/Y'),
+        );
+    }
+
+    public function createdAtFormatted(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at)->format('d/m/Y'),
+        );
+    }
+
     public function isOpened(): Attribute
     {
         return Attribute::make(
             get: fn () => $this->status === RequestStatus::Opened,
+        );
+    }
+
+    public function isRejected(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->status === RequestStatus::Rejected,
+        );
+    }
+
+    public function isApproved(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->status === RequestStatus::Approved,
         );
     }
 
@@ -112,5 +142,12 @@ class Request extends Model
         if (Role::USER == auth()->user()->role->title) {
             $query->where('created_by', auth()->user()->id);
         }
+    }
+
+    public function canBeUpdated(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->status === RequestStatus::Opened,
+        );
     }
 }

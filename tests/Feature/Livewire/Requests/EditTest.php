@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Livewire\Requests;
 
+use App\Enums\RequestStatus;
 use App\Http\Livewire\Requests\Edit;
 use App\Models\Employee;
 use App\Models\Request;
@@ -39,6 +40,7 @@ class EditTest extends TestCase
         $request = Request::factory()->create([
             'company_id' => auth()->user()->company_id,
             'created_by' => auth()->user()->id,
+            'status' => RequestStatus::Opened,
         ]);
 
         $stubRequest = Request::factory()->make();
@@ -76,6 +78,7 @@ class EditTest extends TestCase
         $request = Request::factory()->create([
             'company_id' => auth()->user()->company_id,
             'created_by' => auth()->user()->id,
+            'status' => RequestStatus::Opened,
         ]);
 
         Livewire::test(Edit::class, [$request->id])
@@ -106,6 +109,7 @@ class EditTest extends TestCase
         $request = Request::factory()->create([
             'company_id' => auth()->user()->company_id,
             'created_by' => auth()->user()->id,
+            'status' => RequestStatus::Opened,
         ]);
 
         Livewire::test(Edit::class, [$request->id])
@@ -114,5 +118,59 @@ class EditTest extends TestCase
             ->assertHasErrors([
                 'request.title' => 'max',
             ]);
+    }
+
+    /** @test */
+    public function opened_request_can_be_updated()
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user);
+
+        $request = Request::factory()->create([
+            'company_id' => auth()->user()->company_id,
+            'created_by' => auth()->user()->id,
+            'status' => RequestStatus::Opened,
+        ]);
+
+        $component = Livewire::test(Edit::class, [$request->id]);
+
+        $component->assertStatus(200);
+    }
+
+    /** @test */
+    public function approved_request_can_not_be_updated()
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user);
+
+        $request = Request::factory()->create([
+            'company_id' => auth()->user()->company_id,
+            'created_by' => auth()->user()->id,
+            'status' => RequestStatus::Approved,
+        ]);
+
+        Livewire::test(Edit::class, [$request->id])
+            ->assertSessionHas('message', 'Apenas solicitações em aberto podem ser editadas!')
+            ->assertSessionHas('type', 'warning');
+    }
+
+    /** @test */
+    public function rejected_request_can_not_be_updated()
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user);
+
+        $request = Request::factory()->create([
+            'company_id' => auth()->user()->company_id,
+            'created_by' => auth()->user()->id,
+            'status' => RequestStatus::Rejected,
+        ]);
+
+        Livewire::test(Edit::class, [$request->id])
+            ->assertSessionHas('message', 'Apenas solicitações em aberto podem ser editadas!')
+            ->assertSessionHas('type', 'warning');
     }
 }

@@ -57,6 +57,14 @@ class Index extends Component
         ]);
     }
 
+    public function notify()
+    {
+        $this->emit('alert', [
+            'type' => 'warning',
+            'message' => 'Apenas solicitações em aberto podem ser editadas!',
+        ]);
+    }
+
     public function mount()
     {
         $this->fill(request()->only('search'));
