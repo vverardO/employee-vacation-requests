@@ -20,7 +20,7 @@ class EnsureUserCanAccess
             session()->flash('message', 'Você não tem permissão!');
             session()->flash('type', 'warning');
 
-            return redirect()->back();
+            return redirect()->route('dashboard');
         }
 
         return $next($request);

@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class PermissionRole extends Pivot
 {
+    public $timestamps = false;
+
     protected $fillable = [
         'role_id',
         'permission_id',

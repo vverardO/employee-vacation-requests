@@ -38,7 +38,7 @@ class Edit extends Component
 
         $this->employee->save();
 
-        session()->flash('message', 'Cadastrado com sucesso!');
+        session()->flash('message', 'Atualizado com sucesso!');
         session()->flash('type', 'success');
 
         return redirect()->route('employees.index');

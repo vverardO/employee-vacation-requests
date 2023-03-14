@@ -2,7 +2,6 @@
 
 use App\Models\Permission;
 use App\Models\Role;
-use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('role_id')->constrained()->cascadeOnDelete();
             $table->foreignId('permission_id')->constrained()->cascadeOnDelete();
-            $table->timestamps();
         });
 
         $userRole = Role::isUser()->first();
@@ -28,67 +26,57 @@ return new class extends Migration
         $companyPermission = Permission::isCompanyPermission()->first();
         $profilePermission = Permission::isProfilePermission()->first();
         $dashboardPermission = Permission::isDashboardPermission()->first();
+        $rolesPermission = Permission::isRolesPermission()->first();
+        $permissionsPermission = Permission::isPermissionsPermission()->first();
 
         DB::table('permission_role')->insert([
             [
                 'role_id' => $userRole->id,
                 'permission_id' => $requestsPermission->id,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
             ],
             [
                 'role_id' => $userRole->id,
                 'permission_id' => $employeesPermission->id,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
             ],
             [
                 'role_id' => $userRole->id,
                 'permission_id' => $profilePermission->id,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
             ],
             [
                 'role_id' => $userRole->id,
                 'permission_id' => $dashboardPermission->id,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
             ],
             [
                 'role_id' => $adminRole->id,
                 'permission_id' => $requestsPermission->id,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
             ],
             [
                 'role_id' => $adminRole->id,
                 'permission_id' => $employeesPermission->id,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
             ],
             [
                 'role_id' => $adminRole->id,
                 'permission_id' => $usersPermission->id,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
             ],
             [
                 'role_id' => $adminRole->id,
                 'permission_id' => $companyPermission->id,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
             ],
             [
                 'role_id' => $adminRole->id,
                 'permission_id' => $profilePermission->id,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
             ],
             [
                 'role_id' => $adminRole->id,
                 'permission_id' => $dashboardPermission->id,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+            ],
+            [
+                'role_id' => $adminRole->id,
+                'permission_id' => $rolesPermission->id,
+            ],
+            [
+                'role_id' => $adminRole->id,
+                'permission_id' => $permissionsPermission->id,
             ],
         ]);
     }

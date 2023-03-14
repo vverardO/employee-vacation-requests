@@ -7,9 +7,13 @@ use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\Employees\Create as EmployeesCreate;
 use App\Http\Livewire\Employees\Edit as EmployeesEdit;
 use App\Http\Livewire\Employees\Index as EmployeesIndex;
+use App\Http\Livewire\Permissions\Index as PermissionsIndex;
 use App\Http\Livewire\Requests\Create as RequestsCreate;
 use App\Http\Livewire\Requests\Edit as RequestsEdit;
 use App\Http\Livewire\Requests\Index as RequestsIndex;
+use App\Http\Livewire\Roles\Create as RolesCreate;
+use App\Http\Livewire\Roles\Edit as RolesEdit;
+use App\Http\Livewire\Roles\Index as RolesIndex;
 use App\Http\Livewire\Users\Create as UsersCreate;
 use App\Http\Livewire\Users\Edit as UsersEdit;
 use App\Http\Livewire\Users\Index as UsersIndex;
@@ -41,5 +45,15 @@ Route::middleware(['auth', 'ensure.user.can.access'])->group(function () {
         Route::get('/', RequestsIndex::class)->name('requests.index');
         Route::get('/create', RequestsCreate::class)->name('requests.create');
         Route::get('/edit/{id}', RequestsEdit::class)->name('requests.edit');
+    });
+
+    Route::prefix('roles')->group(function () {
+        Route::get('/', RolesIndex::class)->name('roles.index');
+        Route::get('/create', RolesCreate::class)->name('roles.create');
+        Route::get('/edit/{id}', RolesEdit::class)->name('roles.edit');
+    });
+
+    Route::prefix('permissions')->group(function () {
+        Route::get('/', PermissionsIndex::class)->name('permissions.index');
     });
 });

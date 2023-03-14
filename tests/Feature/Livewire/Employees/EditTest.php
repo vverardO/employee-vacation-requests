@@ -45,7 +45,7 @@ class EditTest extends TestCase
             ->set('employee.general_record', $stubEmployee->general_record)
             ->set('employee.registration_physical_person', $stubEmployee->registration_physical_person)
             ->call('store')
-            ->assertSessionHas('message', 'Cadastrado com sucesso!')
+            ->assertSessionHas('message', 'Atualizado com sucesso!')
             ->assertSessionHas('type', 'success')
             ->assertRedirect(route('employees.index'));
 

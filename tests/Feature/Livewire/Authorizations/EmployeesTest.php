@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Livewire\Permissions;
+namespace Tests\Feature\Livewire\Authorizations;
 
 use App\Http\Livewire\Employees\Create;
 use App\Http\Livewire\Employees\Edit;
