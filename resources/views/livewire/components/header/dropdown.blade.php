@@ -7,20 +7,24 @@
             <i class='bx bx-user-circle text-muted font-size-18 align-middle me-1'></i>
             <span class="align-middle">Meu Perfil</span>
         </a>
-        @unless(Auth::user()->isUser())
+        @can('company')
         <a class="dropdown-item" href="{{route('company')}}">
             <i class='bx bx-buildings text-muted font-size-18 align-middle me-1'></i>
             <span class="align-middle">Empresa</span>
         </a>
+        @endcan
+        @can('roles')
         <a class="dropdown-item" href="{{route('roles.index')}}">
             <i class='bx bx-group text-muted font-size-18 align-middle me-1'></i>
             <span class="align-middle">Funções</span>
         </a>
+        @endcan
+        @can('permissions')
         <a class="dropdown-item" href="{{route('permissions.index')}}">
             <i class='bx bx-id-card text-muted font-size-18 align-middle me-1'></i>
             <span class="align-middle">Permissões</span>
         </a>
-        @endunless
+        @endcan
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="#" wire:click="logout">
             <i class='bx bx-log-out text-muted font-size-18 align-middle me-1'></i>
